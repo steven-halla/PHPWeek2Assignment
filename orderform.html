@@ -25,11 +25,29 @@
     <tr>
       <td>Shipping Address</td>
       <td><input type="text" name="address" size="50" maxlength="100"</td>
-    </tr>    
+    </tr>
     <tr>
      <td colspan="2" style="text-align: center;"><input type="submit" value="Submit Order" /></td>
     </tr>
     </table>
     </form>
+    <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $tireqty = $_POST['tireqty'];
+        $oilqty = $_POST['oilqty'];
+        $sparkqty = $_POST['sparkqty'];
+        $address = $_POST['address'];
+
+        $order = "Tires: $tireqty\n";
+        $order .= "Oil: $oilqty\n";
+        $order .= "Spark Plugs: $sparkqty\n";
+        $order .= "Shipping Address: $address\n";
+
+        $file = fopen("orders.txt", "a") or die("Unable to open file!");
+        fwrite($file, $order);
+        fclose($file);
+    }
+    ?>
+
   </body>
 </html>
